@@ -88,7 +88,7 @@ public class TankeFrame extends Frame{
 			default:
 				break;
 			}
-			System.out.println("end do");
+			System.out.println("end do it");
 			System.out.println("key Released");
 		}
 		
