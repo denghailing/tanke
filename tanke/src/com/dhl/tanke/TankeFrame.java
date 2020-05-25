@@ -1,10 +1,12 @@
 /**
- * Copyright (c) 2013-Now http://jeesite.com All rights reserved.
+ * Copyright (c) 2013-Now http://denghailing//tanke.com All rights reserved.
  */
 package com.dhl.tanke;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -18,11 +20,13 @@ import javax.swing.text.AbstractDocument.BranchElement;
  * @version 2020年5月23日
  */
 public class TankeFrame extends Frame{
-	int x = 200, y = 200;
+	Tanke myTanke = new Tanke(200, 200, Dir.DOWN);
+	Bullet mybullet = new Bullet(300, 300, Dir.DOWN);
+	static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
 	public TankeFrame() {
 		// TODO Auto-generated constructor stub
 		setVisible(true);
-		setSize(800,600);
+		setSize(GAME_WIDTH,GAME_HEIGHT);
 		setTitle("Tanke War");
 		setResizable(false);
 		//添加键盘监听事件，并把自定义的键盘监听对象赋值
@@ -34,10 +38,26 @@ public class TankeFrame extends Frame{
 			}
 		});
 	}
+	//利用双缓冲解决游戏闪屏的问题（游戏开发用到的技术）
+	Image offScreenImage = null;
+	@Override
+	public void update(Graphics g) {
+		if(offScreenImage == null){
+			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+		}
+		Graphics goffscreen = offScreenImage.getGraphics();
+		Color c = goffscreen.getColor();
+		goffscreen.setColor(Color.BLACK);
+		goffscreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		goffscreen.setColor(c);
+		paint(goffscreen);
+		g.drawImage(offScreenImage, 0, 0, null);
+	}
 	
 	@Override
 	public void paint(Graphics g) {
-		g.fillRect(x,y,50,50);
+		myTanke.paint(g);
+		mybullet.paint(g);
 	}
 	//自定义键盘监听类
 	class MykeyListener extends KeyAdapter{
@@ -65,7 +85,7 @@ public class TankeFrame extends Frame{
 			default:
 				break;
 			}
-			System.out.println("key press");
+			setMainTankDir();
 		}
  		//键盘抬起，将其设置为false，要不总是为true
 		@Override
@@ -88,9 +108,18 @@ public class TankeFrame extends Frame{
 			default:
 				break;
 			}
-			System.out.println("end do it");
-			System.out.println("key Released");
+			setMainTankDir();
 		}
 		
+		private void setMainTankDir() {
+			if(!bl && !bu && !br && !bd) myTanke.setMOVING(false);
+			else{
+			myTanke.setMOVING(true);
+				if(bl) myTanke.setDir(Dir.LEFT);
+				if(bu) myTanke.setDir(Dir.UP);
+				if(br) myTanke.setDir(Dir.RIGHT);
+				if(bd) myTanke.setDir(Dir.DOWN);
+			}
+		}
 	}
 }
