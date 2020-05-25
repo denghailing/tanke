@@ -14,7 +14,7 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
  * @version 2020年5月25日
  */
 public class Bullet {
-	private static final int BULSPED= 10;
+	private static final int BULSPED= 5;
 	private static int WIDTH = 30,HEIGHT = 30;
 	private int x,y;
 	private Dir dir;

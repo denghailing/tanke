@@ -18,12 +18,14 @@ public class Tanke {
 	private Dir dir = Dir.DOWN;	
 	private static final int SPEED = 5;
 	private boolean MOVING = false;
+	private TankeFrame tFrame;
 	
-	public Tanke(int x, int y, Dir dir) {
+	public Tanke(int x, int y, Dir dir,TankeFrame tFrame) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.tFrame = tFrame;
 	}
 	
 	public void paint(Graphics g){
@@ -66,5 +68,9 @@ public class Tanke {
 
 	public void setMOVING(boolean mOVING) {
 		MOVING = mOVING;
+	}
+
+	public void fire() {
+		tFrame.mybullet = new Bullet(this.x, this.y, this.dir);
 	}
 }

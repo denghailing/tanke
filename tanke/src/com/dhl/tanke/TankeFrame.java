@@ -20,7 +20,7 @@ import javax.swing.text.AbstractDocument.BranchElement;
  * @version 2020年5月23日
  */
 public class TankeFrame extends Frame{
-	Tanke myTanke = new Tanke(200, 200, Dir.DOWN);
+	Tanke myTanke = new Tanke(200, 200, Dir.DOWN, this);
 	Bullet mybullet = new Bullet(300, 300, Dir.DOWN);
 	static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
 	public TankeFrame() {
@@ -104,6 +104,9 @@ public class TankeFrame extends Frame{
 				break;
 			case KeyEvent.VK_DOWN:
 				bd = false;
+				break;
+			case KeyEvent.VK_SPACE:
+				myTanke.fire();
 				break;
 			default:
 				break;
