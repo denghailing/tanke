@@ -15,7 +15,8 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
  */
 public class Bullet {
 	private static final int BULSPED= 10;
-	private static int WIDTH = 30,HEIGHT = 30;
+	public static int WIDTH = ResourceMg.bulletd.getWidth();
+	public static int HEIGHT =  ResourceMg.bulletd.getHeight();
 	private int x,y;
 	private Dir dir;
 	private boolean live = true;

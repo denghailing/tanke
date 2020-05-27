@@ -18,7 +18,11 @@ public class Tanke {
 	private Dir dir = Dir.DOWN;	
 	private static final int SPEED = 5;
 	private boolean MOVING = false;
+	private static int WIDTH = ResourceMg.tankd.getWidth();
+	private static int HEIGHT =  ResourceMg.tankd.getHeight();
 	private TankeFrame tFrame;
+	private int bx;
+	private int by;
 	
 	public Tanke(int x, int y, Dir dir,TankeFrame tFrame) {
 		super();
@@ -31,15 +35,23 @@ public class Tanke {
 	public void paint(Graphics g){
 		switch(dir){
 		case LEFT:
+			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2-17;
+			by = this.y+Tanke.HEIGHT/2 - Bullet.HEIGHT/2 +3;
 			g.drawImage(ResourceMg.tankl, x, y, null);
 			break;
 		case RIGHT:
+			bx = this.x+Tanke.WIDTH/2 +13;
+			by = this.y+Tanke.HEIGHT/2 - Bullet.HEIGHT/2+4 ;
 			g.drawImage(ResourceMg.tankr, x, y, null);
 			break;
 		case UP:
+			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2+1;
+			by = this.y+Tanke.HEIGHT/2 - Bullet.HEIGHT/2 -15;
 			g.drawImage(ResourceMg.tanku, x, y, null);
 			break;
 		case DOWN:
+			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2-2;
+			by = this.y+Tanke.HEIGHT/2 + 13;
 			g.drawImage(ResourceMg.tankd, x, y, null);
 			break;
 		default:
@@ -83,6 +95,6 @@ public class Tanke {
 	}
 
 	public void fire() {
-		tFrame.bullets.add(new Bullet(this.x, this.y, this.dir,this.tFrame));
+		tFrame.bullets.add(new Bullet(this.bx, this.by, this.dir,this.tFrame));
 	}
 }
