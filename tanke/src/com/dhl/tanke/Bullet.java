@@ -14,22 +14,40 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
  * @version 2020年5月25日
  */
 public class Bullet {
-	private static final int BULSPED= 5;
+	private static final int BULSPED= 10;
 	private static int WIDTH = 30,HEIGHT = 30;
 	private int x,y;
 	private Dir dir;
+	private boolean live = true;
+	TankeFrame tf = null;
 	
-	public Bullet(int x, int y, Dir dir) {
+	public Bullet(int x, int y, Dir dir,TankeFrame tf) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.tf = tf;
 	}
 	
 	public void paint(Graphics g){
-		Color color  = g.getColor();
-		g.setColor(Color.RED);
-		g.fillOval(x, y, WIDTH, HEIGHT);
-		g.setColor(color);
+		if(!live){
+			tf.bullets.remove(this);
+		}
+		switch(dir){
+		case LEFT:
+			g.drawImage(ResourceMg.bulletl, x, y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceMg.bulletr, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceMg.bulletu, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceMg.bulletd, x, y, null);
+			break;
+		default:
+			break;
+		}
 		move();
 	}
 	private void move() {
@@ -47,5 +65,6 @@ public class Bullet {
 			y += BULSPED;
 			break;
 		}
+		if(x<0||y<0||x>TankeFrame.GAME_WIDTH||y > TankeFrame.GAME_HEIGHT) live = false;
 	}
 }

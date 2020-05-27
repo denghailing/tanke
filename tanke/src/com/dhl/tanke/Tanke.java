@@ -29,10 +29,22 @@ public class Tanke {
 	}
 	
 	public void paint(Graphics g){
-		Color color = g.getColor();
-		g.setColor(Color.YELLOW);		
-		g.fillRect(x,y,50,50);
-		g.setColor(color);
+		switch(dir){
+		case LEFT:
+			g.drawImage(ResourceMg.tankl, x, y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceMg.tankr, x, y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceMg.tanku, x, y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceMg.tankd, x, y, null);
+			break;
+		default:
+			break;
+		}
 		move();
 	}
 
@@ -71,6 +83,6 @@ public class Tanke {
 	}
 
 	public void fire() {
-		tFrame.mybullet = new Bullet(this.x, this.y, this.dir);
+		tFrame.bullets.add(new Bullet(this.x, this.y, this.dir,this.tFrame));
 	}
 }

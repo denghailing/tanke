@@ -7,10 +7,12 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.List;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.text.AbstractDocument.BranchElement;
 
@@ -21,7 +23,8 @@ import javax.swing.text.AbstractDocument.BranchElement;
  */
 public class TankeFrame extends Frame{
 	Tanke myTanke = new Tanke(200, 200, Dir.DOWN, this);
-	Bullet mybullet = new Bullet(300, 300, Dir.DOWN);
+	Bullet mybullet = new Bullet(300, 300, Dir.DOWN,this);
+	List<Bullet> bullets = new ArrayList<>();
 	static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
 	public TankeFrame() {
 		// TODO Auto-generated constructor stub
@@ -57,7 +60,14 @@ public class TankeFrame extends Frame{
 	@Override
 	public void paint(Graphics g) {
 		myTanke.paint(g);
-		mybullet.paint(g);
+		Color color = g.getColor();
+		g.setColor(Color.WHITE);
+		g.drawString("子弹数量："+ bullets.size(),10,60);
+		g.setColor(color);
+		for (int i = 0;i < bullets.size();i++){
+			bullets.get(i).paint(g);
+		}
+		//mybullet.paint(g);
 	}
 	//自定义键盘监听类
 	class MykeyListener extends KeyAdapter{
@@ -117,7 +127,7 @@ public class TankeFrame extends Frame{
 		private void setMainTankDir() {
 			if(!bl && !bu && !br && !bd) myTanke.setMOVING(false);
 			else{
-			myTanke.setMOVING(true);
+				myTanke.setMOVING(true);
 				if(bl) myTanke.setDir(Dir.LEFT);
 				if(bu) myTanke.setDir(Dir.UP);
 				if(br) myTanke.setDir(Dir.RIGHT);
