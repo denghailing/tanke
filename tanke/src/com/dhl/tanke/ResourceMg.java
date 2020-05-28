@@ -16,12 +16,15 @@ import javax.imageio.ImageIO;
 public class ResourceMg {
 	public static BufferedImage tankl,tanku,tankr,tankd;
 	public static BufferedImage bulletl,bulletr,bulletu,bulletd;
+	public static BufferedImage[] explodes = new BufferedImage[16];
 	static{
 		try {
 			tankl = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankL.gif"));
 			tanku = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankU.gif"));
 			tankd = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankD.gif"));
 			tankr = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankR.gif"));
+			for (int i = 0; i < 16;i++) 
+				explodes[i] = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/e"+(i+1)+".gif"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -22,10 +22,11 @@ import javax.swing.text.AbstractDocument.BranchElement;
  * @version 2020年5月23日
  */
 public class TankeFrame extends Frame{
-	Tanke myTanke = new Tanke(200, 400, Dir.DOWN, this);
-	Bullet mybullet = new Bullet(300, 300, Dir.DOWN,this);
+	Tanke myTanke = new Tanke(200, 400, Dir.DOWN,Group.GOOD,this);
+	Bullet mybullet = new Bullet(300, 300, Dir.DOWN,Group.GOOD,this);
 	List<Bullet> bullets = new ArrayList<>();
 	List<Tanke> enemyTank = new ArrayList<>();
+	Explode e = new Explode(100, 100, this); 
 	static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
 	public TankeFrame() {
 		// TODO Auto-generated constructor stub
@@ -76,6 +77,7 @@ public class TankeFrame extends Frame{
 			for(int j = 0;j < enemyTank.size();j++)
 				bullets.get(i).collideWith(enemyTank.get(j));
 		}
+		e.paint(g);
 	}
 	//自定义键盘监听类
 	class MykeyListener extends KeyAdapter{

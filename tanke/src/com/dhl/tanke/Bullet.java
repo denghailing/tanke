@@ -23,15 +23,27 @@ public class Bullet {
 	private Dir dir;
 	private boolean living = true;
 	TankeFrame tf = null;
+	private Group group = Group.BAD;
 	
-	public Bullet(int x, int y, Dir dir,TankeFrame tf) {
+	public Bullet(int x, int y, Dir dir,Group group,TankeFrame tf) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tf = tf;
 	}
 
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 	public void collideWith(Tanke tanke) {
+		if(this.group == tanke.getGroup()) return;
+		//用一个rect来记录子弹的位置
 		Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
 		Rectangle rectangle2 = new Rectangle(tanke.getX() ,tanke.getY(),tanke.WIDTH,tanke.HEIGHT);
 		if(rectangle1.intersects(rectangle2)){

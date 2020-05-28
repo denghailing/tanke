@@ -17,7 +17,7 @@ public class main {
 		TankeFrame frame = new TankeFrame();
 		//初始化敌方坦克
 		for(int i = 0; i < 5; i++){
-			frame.enemyTank.add(new Tanke(50+i*80, 200, Dir.DOWN , frame));
+			frame.enemyTank.add(new Tanke(50+i*80, 200, Dir.DOWN,Group.BAD,frame));
 		}
 		while(true){
 			Thread.sleep(50);

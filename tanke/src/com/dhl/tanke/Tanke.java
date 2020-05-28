@@ -5,6 +5,7 @@ package com.dhl.tanke;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
@@ -17,19 +18,28 @@ public class Tanke {
 	private int x,y;
 	private Dir dir = Dir.DOWN;	
 	private static final int SPEED = 5;
-	private boolean MOVING = false;
+	private boolean MOVING = true;
 	public static int WIDTH = ResourceMg.tankd.getWidth();
 	public static int HEIGHT =  ResourceMg.tankd.getHeight();
 	private TankeFrame tFrame;
 	private int bx;
 	private int by;
 	private boolean living = true;
+	private Random random = new Random();
+	private Group group = Group.BAD;
 	
-	public Tanke(int x, int y, Dir dir,TankeFrame tFrame) {
+	public Group getGroup() {
+		return group;
+	}
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+	public Tanke(int x, int y, Dir dir,Group group,TankeFrame tFrame) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
+		this.group = group;
 		this.tFrame = tFrame;
 	}
 	public int getX() {
@@ -93,8 +103,14 @@ public class Tanke {
 			y += SPEED;
 			break;
 		}
+		//randomDir();
+		if(random.nextInt() > 8) this.fire();
 	}
 
+	private void randomDir() {
+		// TODO Auto-generated method stub
+		
+	}
 	public void setDir(Dir dir) {
 		this.dir = dir;
 	}
@@ -112,7 +128,7 @@ public class Tanke {
 	}
 
 	public void fire() {
-		tFrame.bullets.add(new Bullet(this.bx, this.by, this.dir,this.tFrame));
+		tFrame.bullets.add(new Bullet(this.bx, this.by, this.dir,this.group,this.tFrame));
 	}
 
 	public void die() {
