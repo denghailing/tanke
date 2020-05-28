@@ -5,6 +5,8 @@ package com.dhl.tanke;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.geom.RectangularShape;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
@@ -19,7 +21,7 @@ public class Bullet {
 	public static int HEIGHT =  ResourceMg.bulletd.getHeight();
 	private int x,y;
 	private Dir dir;
-	private boolean live = true;
+	private boolean living = true;
 	TankeFrame tf = null;
 	
 	public Bullet(int x, int y, Dir dir,TankeFrame tf) {
@@ -28,9 +30,48 @@ public class Bullet {
 		this.dir = dir;
 		this.tf = tf;
 	}
+
+	public void collideWith(Tanke tanke) {
+		Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+		Rectangle rectangle2 = new Rectangle(tanke.getX() ,tanke.getY(),tanke.WIDTH,tanke.HEIGHT);
+		if(rectangle1.intersects(rectangle2)){
+			tanke.die();
+			this.die();
+		}
+	}
+
+	private void die() {
+		this.living = false;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	private void move() {
+		switch(dir){
+		case LEFT:
+			x -= BULSPED;
+			break;
+		case RIGHT:
+			x += BULSPED;
+			break;
+		case UP:
+			y -= BULSPED;
+			break;
+		case DOWN:
+			y += BULSPED;
+			break;
+		}
+		if(x<0||y<0||x>TankeFrame.GAME_WIDTH||y > TankeFrame.GAME_HEIGHT) living = false;
+	}
 	
 	public void paint(Graphics g){
-		if(!live){
+		if(!living){
 			tf.bullets.remove(this);
 		}
 		switch(dir){
@@ -51,21 +92,11 @@ public class Bullet {
 		}
 		move();
 	}
-	private void move() {
-		switch(dir){
-		case LEFT:
-			x -= BULSPED;
-			break;
-		case RIGHT:
-			x += BULSPED;
-			break;
-		case UP:
-			y -= BULSPED;
-			break;
-		case DOWN:
-			y += BULSPED;
-			break;
-		}
-		if(x<0||y<0||x>TankeFrame.GAME_WIDTH||y > TankeFrame.GAME_HEIGHT) live = false;
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 }

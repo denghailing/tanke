@@ -18,11 +18,12 @@ public class Tanke {
 	private Dir dir = Dir.DOWN;	
 	private static final int SPEED = 5;
 	private boolean MOVING = false;
-	private static int WIDTH = ResourceMg.tankd.getWidth();
-	private static int HEIGHT =  ResourceMg.tankd.getHeight();
+	public static int WIDTH = ResourceMg.tankd.getWidth();
+	public static int HEIGHT =  ResourceMg.tankd.getHeight();
 	private TankeFrame tFrame;
 	private int bx;
 	private int by;
+	private boolean living = true;
 	
 	public Tanke(int x, int y, Dir dir,TankeFrame tFrame) {
 		super();
@@ -31,8 +32,24 @@ public class Tanke {
 		this.dir = dir;
 		this.tFrame = tFrame;
 	}
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
 	
 	public void paint(Graphics g){
+		if(!living) tFrame.enemyTank.remove(this);
 		switch(dir){
 		case LEFT:
 			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2-17;
@@ -96,5 +113,9 @@ public class Tanke {
 
 	public void fire() {
 		tFrame.bullets.add(new Bullet(this.bx, this.by, this.dir,this.tFrame));
+	}
+
+	public void die() {
+		this.living = false;
 	}
 }

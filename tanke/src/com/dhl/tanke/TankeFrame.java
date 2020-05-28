@@ -22,9 +22,10 @@ import javax.swing.text.AbstractDocument.BranchElement;
  * @version 2020年5月23日
  */
 public class TankeFrame extends Frame{
-	Tanke myTanke = new Tanke(200, 200, Dir.DOWN, this);
+	Tanke myTanke = new Tanke(200, 400, Dir.DOWN, this);
 	Bullet mybullet = new Bullet(300, 300, Dir.DOWN,this);
 	List<Bullet> bullets = new ArrayList<>();
+	List<Tanke> enemyTank = new ArrayList<>();
 	static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
 	public TankeFrame() {
 		// TODO Auto-generated constructor stub
@@ -63,11 +64,18 @@ public class TankeFrame extends Frame{
 		Color color = g.getColor();
 		g.setColor(Color.WHITE);
 		g.drawString("子弹数量："+ bullets.size(),10,60);
+		g.drawString("敌人数量："+ enemyTank.size(),10,80);
 		g.setColor(color);
 		for (int i = 0;i < bullets.size();i++){
 			bullets.get(i).paint(g);
 		}
-		//mybullet.paint(g);
+		for (int i = 0;i < enemyTank.size();i++){
+			enemyTank.get(i).paint(g);
+		}
+		for(int i = 0;i < bullets.size();i++ ){
+			for(int j = 0;j < enemyTank.size();j++)
+				bullets.get(i).collideWith(enemyTank.get(j));
+		}
 	}
 	//自定义键盘监听类
 	class MykeyListener extends KeyAdapter{
