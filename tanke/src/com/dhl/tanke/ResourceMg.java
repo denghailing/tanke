@@ -19,10 +19,10 @@ public class ResourceMg {
 	public static BufferedImage[] explodes = new BufferedImage[16];
 	static{
 		try {
-			tankl = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankL.gif"));
-			tanku = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankU.gif"));
-			tankd = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankD.gif"));
-			tankr = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/tankR.gif"));
+			tanku = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
+			tankl = ImageUtil.rotateImage(tanku, -90);
+			tankd = ImageUtil.rotateImage(tanku, 180);
+			tankr = ImageUtil.rotateImage(tanku, 90);
 			for (int i = 0; i < 16;i++) 
 				explodes[i] = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/e"+(i+1)+".gif"));
 		} catch (IOException e) {
@@ -31,10 +31,10 @@ public class ResourceMg {
 	}
 	static{
 		try {
-			bulletl = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/bulletL.gif"));
-			bulletu = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
-			bulletd = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
-			bulletr = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/bulletR.gif"));
+			bulletu = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
+			bulletl = ImageUtil.rotateImage(bulletu, -90);
+			bulletd = ImageUtil.rotateImage(bulletu, 180);
+			bulletr = ImageUtil.rotateImage(bulletu, 90);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

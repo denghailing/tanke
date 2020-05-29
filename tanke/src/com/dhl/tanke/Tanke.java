@@ -19,8 +19,8 @@ public class Tanke {
 	private Dir dir = Dir.DOWN;	
 	private static final int SPEED = 5;
 	private boolean MOVING = true;
-	public static int WIDTH = ResourceMg.tankd.getWidth();
-	public static int HEIGHT =  ResourceMg.tankd.getHeight();
+	public static int WIDTH = ResourceMg.tanku.getWidth();
+	public static int HEIGHT =  ResourceMg.tanku.getHeight();
 	private TankeFrame tFrame;
 	private int bx;
 	private int by;
@@ -104,12 +104,12 @@ public class Tanke {
 			break;
 		}
 		//randomDir();
-		if(random.nextInt() > 8) this.fire();
+		if(this.group == Group.BAD && random.nextInt(100) > 95) this.fire();
+		if(this.group == Group.BAD && random.nextInt(100) > 95) randomDir();
 	}
 
 	private void randomDir() {
-		// TODO Auto-generated method stub
-		
+		this.dir = Dir.values()[random.nextInt(4)];
 	}
 	public void setDir(Dir dir) {
 		this.dir = dir;

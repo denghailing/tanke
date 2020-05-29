@@ -49,6 +49,8 @@ public class Bullet {
 		if(rectangle1.intersects(rectangle2)){
 			tanke.die();
 			this.die();
+			tf.explodes.add(new Explode(x, y, tf));
+			new Thread(()-> new Audio("audio/explode.wav").play()).start();
 		}
 	}
 

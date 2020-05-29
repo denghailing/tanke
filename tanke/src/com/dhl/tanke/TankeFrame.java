@@ -26,8 +26,9 @@ public class TankeFrame extends Frame{
 	Bullet mybullet = new Bullet(300, 300, Dir.DOWN,Group.GOOD,this);
 	List<Bullet> bullets = new ArrayList<>();
 	List<Tanke> enemyTank = new ArrayList<>();
+	List<Explode> explodes = new ArrayList<>();
 	Explode e = new Explode(100, 100, this); 
-	static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
+	static final int GAME_WIDTH = 1080,GAME_HEIGHT = 960;
 	public TankeFrame() {
 		// TODO Auto-generated constructor stub
 		setVisible(true);
@@ -66,6 +67,7 @@ public class TankeFrame extends Frame{
 		g.setColor(Color.WHITE);
 		g.drawString("子弹数量："+ bullets.size(),10,60);
 		g.drawString("敌人数量："+ enemyTank.size(),10,80);
+		g.drawString("爆炸数量："+ explodes.size(),10,100);
 		g.setColor(color);
 		for (int i = 0;i < bullets.size();i++){
 			bullets.get(i).paint(g);
@@ -73,6 +75,11 @@ public class TankeFrame extends Frame{
 		for (int i = 0;i < enemyTank.size();i++){
 			enemyTank.get(i).paint(g);
 		}
+		
+		for (int i = 0;i < explodes.size();i++){
+			explodes.get(i).paint(g);
+		}
+		
 		for(int i = 0;i < bullets.size();i++ ){
 			for(int j = 0;j < enemyTank.size();j++)
 				bullets.get(i).collideWith(enemyTank.get(j));
