@@ -19,6 +19,7 @@ public class Bullet {
 	private static final int BULSPED= 10;
 	public static int WIDTH = ResourceMg.bulletd.getWidth();
 	public static int HEIGHT =  ResourceMg.bulletd.getHeight();
+	public Rectangle rect = new Rectangle();
 	private int x,y;
 	private Dir dir;
 	private boolean living = true;
@@ -31,6 +32,10 @@ public class Bullet {
 		this.dir = dir;
 		this.group = group;
 		this.tf = tf;
+		rect.x = this.x;
+		rect.y = this.y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 
 	public Group getGroup() {
@@ -44,9 +49,9 @@ public class Bullet {
 	public void collideWith(Tanke tanke) {
 		if(this.group == tanke.getGroup()) return;
 		//用一个rect来记录子弹的位置
-		Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-		Rectangle rectangle2 = new Rectangle(tanke.getX() ,tanke.getY(),tanke.WIDTH,tanke.HEIGHT);
-		if(rectangle1.intersects(rectangle2)){
+		//Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+		//Rectangle rectangle2 = new Rectangle(tanke.getX() ,tanke.getY(),tanke.WIDTH,tanke.HEIGHT);
+		if(this.living && tanke.isLiving() && this.rect.intersects(tanke.rect)){
 			tanke.die();
 			this.die();
 			int ex = tanke.getX()+tanke.WIDTH/2 - Explode.WIDTH/2;
@@ -83,6 +88,9 @@ public class Bullet {
 			y += BULSPED;
 			break;
 		}
+		//update rect
+		rect.x = this.x;
+		rect.y = this.y;
 		if(x<0||y<0||x>TankeFrame.GAME_WIDTH||y > TankeFrame.GAME_HEIGHT) living = false;
 	}
 	
