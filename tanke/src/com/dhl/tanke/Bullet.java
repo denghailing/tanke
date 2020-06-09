@@ -10,12 +10,14 @@ import java.awt.geom.RectangularShape;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
+import com.dhl.tanke.abstractfactory.BaseBullet;
+
 /**
  * 
  * @author DHL
  * @version 2020年5月25日
  */
-public class Bullet {
+public class Bullet extends BaseBullet {
 	private static final int BULSPED= 10;
 	public static int WIDTH = ResourceMg.bulletd.getWidth();
 	public static int HEIGHT =  ResourceMg.bulletd.getHeight();
@@ -56,7 +58,7 @@ public class Bullet {
 			this.die();
 			int ex = tanke.getX()+tanke.WIDTH/2 - Explode.WIDTH/2;
 			int ey = tanke.getY()+Tanke.HEIGHT/2 - Explode.HEIGHT/2;
-			tf.explodes.add(new Explode(ex, ey, tf));
+			tf.explodes.add(tf.gf.creatExplode(ex, ey, tf));
 			new Thread(()-> new Audio("audio/explode.wav").play()).start();
 		}
 	}
@@ -93,7 +95,7 @@ public class Bullet {
 		rect.y = this.y;
 		if(x<0||y<0||x>TankeFrame.GAME_WIDTH||y > TankeFrame.GAME_HEIGHT) living = false;
 	}
-	
+	@Override
 	public void paint(Graphics g){
 		if(!living){
 			tf.bullets.remove(this);

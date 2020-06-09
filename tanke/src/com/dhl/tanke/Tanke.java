@@ -10,25 +10,28 @@ import java.util.Random;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
+import com.dhl.tanke.abstractfactory.BaseTanke;
+
 /**
  * 
  * @author DHL
  * @version 2020年5月25日
  */
-public class Tanke {
+public class Tanke extends BaseTanke {
 	private int x,y;
-	private Dir dir = Dir.DOWN;	
+	public Dir dir = Dir.DOWN;	
 	private static final int SPEED = 5;
 	private boolean MOVING = true;
 	public static int WIDTH = ResourceMg.goodtanku.getWidth();
 	public static int HEIGHT =  ResourceMg.goodtanku.getHeight();
-	private TankeFrame tFrame;
-	private int bx;
-	private int by;
+	public TankeFrame tFrame;
+	public int bx;
+	public int by;
 	private boolean living = true;
 	private Random random = new Random();
-	private Group group = Group.BAD;
+	public Group group = Group.BAD;
 	public Rectangle rect = new Rectangle();
+	FireStrategy fs;
 	
 	public Group getGroup() {
 		return group;
@@ -47,6 +50,29 @@ public class Tanke {
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		if(this.group == Group.GOOD){
+			String goodfire = PropertyMgr.getString("goodfs");
+			try {
+				this.fs = (FireStrategy)Class.forName(goodfire).newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			String badfire = PropertyMgr.getString("badfs");
+			try {
+				this.fs = (FireStrategy)Class.forName(badfire).newInstance();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	public int getX() {
 		return x;
@@ -63,7 +89,7 @@ public class Tanke {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+	@Override
 	public void paint(Graphics g){
 		if(!living) tFrame.enemyTank.remove(this);
 		switch(dir){
@@ -144,7 +170,7 @@ public class Tanke {
 	}
 
 	public void fire() {
-		tFrame.bullets.add(new Bullet(this.bx, this.by, this.dir,this.group,this.tFrame));
+		fs.fire(this);
 	}
 
 	public void die() {

@@ -39,7 +39,7 @@ public class ResourceMg {
 	static{
 		try {
 			bulletu = ImageIO.read(ResourceMg.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
-			bulletl = ImageUtil.rotateImage(bulletu, -90);
+			bulletl = ImageUtil.rotateImage(bulletu, 270);
 			bulletd = ImageUtil.rotateImage(bulletu, 180);
 			bulletr = ImageUtil.rotateImage(bulletu, 90);
 		} catch (IOException e) {
