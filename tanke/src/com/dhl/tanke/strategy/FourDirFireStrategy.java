@@ -1,9 +1,15 @@
 /**
  * Copyright (c) 2013-Now http://denghailing.com All rights reserved.
  */
-package com.dhl.tanke;
+package com.dhl.tanke.strategy;
 
 import java.time.format.TextStyle;
+
+import com.dhl.tanke.Audio;
+import com.dhl.tanke.Bullet;
+import com.dhl.tanke.Dir;
+import com.dhl.tanke.Group;
+import com.dhl.tanke.Tanke;
 
 /**
  * 

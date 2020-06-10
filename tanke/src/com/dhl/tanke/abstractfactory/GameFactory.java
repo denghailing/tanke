@@ -3,6 +3,7 @@
  */
 package com.dhl.tanke.abstractfactory;
 
+import com.dhl.tanke.Bullet;
 import com.dhl.tanke.Dir;
 import com.dhl.tanke.Group;
 import com.dhl.tanke.TankeFrame;

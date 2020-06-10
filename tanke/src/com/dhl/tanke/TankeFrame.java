@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import javax.swing.text.AbstractDocument.BranchElement;
 
+import com.dhl.tanke.abstractfactory.BaseBullet;
 import com.dhl.tanke.abstractfactory.BaseExplode;
 import com.dhl.tanke.abstractfactory.DefaultFactory;
 import com.dhl.tanke.abstractfactory.GameFactory;
@@ -28,15 +29,16 @@ import com.dhl.tanke.abstractfactory.RectFactory;
  */
 public class TankeFrame extends Frame{
 	Tanke myTanke = new Tanke(200, 400, Dir.DOWN,Group.GOOD,this);
-	Bullet mybullet = new Bullet(300, 300, Dir.DOWN,Group.GOOD,this);
-	public List<Bullet> bullets = new ArrayList<>();
+	BaseBullet mybullet = new Bullet(300, 300, Dir.DOWN,Group.GOOD,this);
+	public List<BaseBullet> bullets = new ArrayList<>();
 	public List<Tanke> enemyTank = new ArrayList<>();
 	public List<BaseExplode> explodes = new ArrayList<>();
 	
-	GameFactory gf = new RectFactory();
+	public GameFactory gf = new RectFactory();
 	
 	Explode e = new Explode(100, 100, this); 
-	static final int GAME_WIDTH = 1080,GAME_HEIGHT = 960;
+	public static final int GAME_WIDTH = 1080;
+	public static final int GAME_HEIGHT = 960;
 	public TankeFrame() {
 		// TODO Auto-generated constructor stub
 		setVisible(true);

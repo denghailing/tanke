@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
 import com.dhl.tanke.abstractfactory.BaseTanke;
+import com.dhl.tanke.strategy.FireStrategy;
 
 /**
  * 

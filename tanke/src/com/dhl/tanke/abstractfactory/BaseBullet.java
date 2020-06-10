@@ -5,6 +5,8 @@ package com.dhl.tanke.abstractfactory;
 
 import java.awt.Graphics;
 
+import com.dhl.tanke.Tanke;
+
 /**
  * 
  * @author DHL
@@ -12,4 +14,5 @@ import java.awt.Graphics;
  */
 public abstract class  BaseBullet {
 	public abstract void paint(Graphics g);
+	public abstract void collideWith(Tanke tanke);
 }
