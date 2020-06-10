@@ -17,13 +17,13 @@ public class LineFireStrategy implements FireStrategy{
 		case UP:
 		case DOWN:
 			for(int bx = 1;bx<PropertyMgr.getInt("gamewidth");bx++)
-				t.tFrame.bullets.add(new Bullet(bx, t.by, t.dir, t.group, t.tFrame));
+				t.tFrame.bullets.add(t.tFrame.gf.creatBullet(bx, t.by, t.dir, t.group, t.tFrame));
 			if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 			break;
 		case LEFT:
 		case RIGHT:
 			for(int by = 1;by<PropertyMgr.getInt("gamewidth");by++)
-				t.tFrame.bullets.add(new Bullet(t.bx, by, t.dir, t.group, t.tFrame));
+				t.tFrame.bullets.add(t.tFrame.gf.creatBullet(t.bx,by, t.dir, t.group, t.tFrame));
 			if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 		default:
 			break;

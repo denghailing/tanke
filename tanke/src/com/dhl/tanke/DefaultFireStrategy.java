@@ -11,7 +11,7 @@ package com.dhl.tanke;
 public class DefaultFireStrategy implements FireStrategy{
 	@Override
 	public void fire(Tanke t) {
-		t.tFrame.bullets.add(new Bullet(t.bx, t.by, t.dir,t.group,t.tFrame));
+		t.tFrame.bullets.add(t.tFrame.gf.creatBullet(t.bx, t.by, t.dir, t.group, t.tFrame));
 		if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
 }
