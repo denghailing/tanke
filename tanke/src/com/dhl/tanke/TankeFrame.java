@@ -18,6 +18,7 @@ import javax.swing.text.AbstractDocument.BranchElement;
 
 import com.dhl.tanke.abstractfactory.BaseBullet;
 import com.dhl.tanke.abstractfactory.BaseExplode;
+import com.dhl.tanke.abstractfactory.BaseTanke;
 import com.dhl.tanke.abstractfactory.DefaultFactory;
 import com.dhl.tanke.abstractfactory.GameFactory;
 import com.dhl.tanke.abstractfactory.RectFactory;
@@ -31,10 +32,10 @@ public class TankeFrame extends Frame{
 	Tanke myTanke = new Tanke(200, 400, Dir.DOWN,Group.GOOD,this);
 	BaseBullet mybullet = new Bullet(300, 300, Dir.DOWN,Group.GOOD,this);
 	public List<BaseBullet> bullets = new ArrayList<>();
-	public List<Tanke> enemyTank = new ArrayList<>();
+	public List<BaseTanke> enemyTank = new ArrayList<>();
 	public List<BaseExplode> explodes = new ArrayList<>();
 	
-	public GameFactory gf = new RectFactory();
+	public GameFactory gf = new DefaultFactory();
 	
 	Explode e = new Explode(100, 100, this); 
 	public static final int GAME_WIDTH = 1080;

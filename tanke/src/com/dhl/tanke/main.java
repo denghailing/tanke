@@ -18,7 +18,7 @@ public class main {
 		int initTankeCount = PropertyMgr.getInt("initTankeCount");
 		//初始化敌方坦克
 		for(int i = 0; i < initTankeCount; i++){
-			frame.enemyTank.add(new Tanke(50+i*80, 200, Dir.DOWN,Group.BAD,frame));
+			frame.enemyTank.add(frame.gf.creatTanke(50+i*80, 200, Dir.DOWN,Group.BAD,frame));
 		}
 		while(true){
 			Thread.sleep(50);

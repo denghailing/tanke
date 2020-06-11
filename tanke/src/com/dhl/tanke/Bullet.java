@@ -11,6 +11,7 @@ import java.awt.geom.RectangularShape;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 
 import com.dhl.tanke.abstractfactory.BaseBullet;
+import com.dhl.tanke.abstractfactory.BaseTanke;
 
 /**
  * 
@@ -48,7 +49,7 @@ public class Bullet extends BaseBullet {
 		this.group = group;
 	}
 
-	public void collideWith(Tanke tanke) {
+	public void collideWith(BaseTanke tanke) {
 		if(this.group == tanke.getGroup()) return;
 		//用一个rect来记录子弹的位置
 		//Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
@@ -56,7 +57,7 @@ public class Bullet extends BaseBullet {
 		if(this.living && tanke.isLiving() && this.rect.intersects(tanke.rect)){
 			tanke.die();
 			this.die();
-			int ex = tanke.getX()+tanke.WIDTH/2 - Explode.WIDTH/2;
+			int ex = tanke.getX()+Tanke.WIDTH/2 - Explode.WIDTH/2;
 			int ey = tanke.getY()+Tanke.HEIGHT/2 - Explode.HEIGHT/2;
 			tf.explodes.add(tf.gf.creatExplode(ex, ey, tf));
 			new Thread(()-> new Audio("audio/explode.wav").play()).start();

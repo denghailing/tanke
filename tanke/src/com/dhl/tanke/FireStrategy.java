@@ -3,12 +3,14 @@
  */
 package com.dhl.tanke;
 
+import com.dhl.tanke.abstractfactory.BaseBullet;
+import com.dhl.tanke.abstractfactory.BaseTanke;
+
 /**
  * 
  * @author DHL
  * @version 2020年6月3日
  */
 public interface FireStrategy {
-	void fire(Tanke t);
-
+	public void BulletType(Tanke t);
 }

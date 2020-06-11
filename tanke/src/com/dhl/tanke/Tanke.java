@@ -29,8 +29,6 @@ public class Tanke extends BaseTanke {
 	public int by;
 	private boolean living = true;
 	private Random random = new Random();
-	public Group group = Group.BAD;
-	public Rectangle rect = new Rectangle();
 	FireStrategy fs;
 	
 	public Group getGroup() {
@@ -74,18 +72,17 @@ public class Tanke extends BaseTanke {
 			}
 		}
 	}
+	@Override
 	public int getX() {
 		return x;
 	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
+	@Override
 	public int getY() {
 		return y;
 	}
-
+	public void setX(int x) {
+		this.x = x;
+	}
 	public void setY(int y) {
 		this.y = y;
 	}
@@ -170,7 +167,12 @@ public class Tanke extends BaseTanke {
 	}
 
 	public void fire() {
-		fs.fire(this);
+		fs.BulletType(this);
+//		Dir[] dirs = Dir.values();
+//		for(Dir dir:dirs){
+//			this.tFrame.bullets.add(this.tFrame.gf.creatBullet(this.bx, this.by, dir, this.group, this.tFrame));
+//		}
+//		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
 
 	public void die() {
