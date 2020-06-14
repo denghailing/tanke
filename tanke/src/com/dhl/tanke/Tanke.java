@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import com.dhl.tanke.strategy.FireStrategy;
+
 /**
  * 
  * @author DHL
@@ -82,7 +84,7 @@ public class Tanke extends GameObject{
 	}
 	@Override
 	public void paint(Graphics g){
-		if(!living) gModel.enemyTank.remove(this);
+		if(!living) gModel.remove(this);
 		switch(dir){
 		case LEFT:
 			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2-40;

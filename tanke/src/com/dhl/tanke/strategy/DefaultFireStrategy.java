@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-Now http://denghailing.com All rights reserved.
  */
-package com.dhl.tanke;
+package com.dhl.tanke.strategy;
 
 import com.dhl.tanke.Audio;
 import com.dhl.tanke.Bullet;
@@ -22,7 +22,7 @@ public class DefaultFireStrategy implements FireStrategy{
 	
 	@Override
 	public void BulletType(Tanke t) {
-		t.gModel.bullets.add(new Bullet(t.bx, t.by, t.dir, t.group, t.gModel));
+		t.gModel.add(new Bullet(t.bx, t.by, t.dir, t.group, t.gModel));
 		if(t.group == Group.GOOD){
 			new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 		}

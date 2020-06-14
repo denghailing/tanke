@@ -39,7 +39,7 @@ public class Bullet extends GameObject {
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		gm.bullets.add(this);
+		gm.add(this);
 	}
 
 	public Group getGroup() {
@@ -61,7 +61,7 @@ public class Bullet extends GameObject {
 			int ex = tanke.getX()+Tanke.WIDTH/2 - Explode.WIDTH/2;
 			int ey = tanke.getY()+Tanke.HEIGHT/2 - Explode.HEIGHT/2;
 			//gm.explodes.add(gm.gf.creatExplode(ex, ey, tf));
-			gm.explodes.add(new Explode(ex, ey, gm));
+			gm.add(new Explode(ex, ey, gm));
 			new Thread(()-> new Audio("audio/explode.wav").play()).start();
 		}
 	}
@@ -101,7 +101,7 @@ public class Bullet extends GameObject {
 	@Override
 	public void paint(Graphics g){
 		if(!living){
-			gm.bullets.remove(this);
+			gm.remove(this);
 		}
 		switch(dir){
 		case LEFT:

@@ -7,9 +7,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.RectangularShape;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
-
 import com.dhl.tanke.abstractfactory.BaseBullet;
 import com.dhl.tanke.abstractfactory.BaseExplode;
 
@@ -18,7 +15,7 @@ import com.dhl.tanke.abstractfactory.BaseExplode;
  * @author DHL
  * @version 2020年5月25日
  */
-public class Explode extends BaseExplode {
+public class Explode extends GameObject {
 	public static int WIDTH = ResourceMg.explodes[0].getWidth();
 	public static int HEIGHT =  ResourceMg.explodes[0].getHeight();
 	private int x,y;
@@ -34,7 +31,7 @@ public class Explode extends BaseExplode {
 	public void paint(Graphics g){
 		
 		if(step >= ResourceMg.explodes.length){
-			gm.explodes.remove(this);
+			gm.remove(this);
 			//tf.INSTANCE.explodes.remove(this);
 			System.out.println("step = " + step);
 		}else{

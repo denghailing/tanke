@@ -21,7 +21,6 @@ import com.dhl.tanke.abstractfactory.BaseExplode;
 import com.dhl.tanke.abstractfactory.BaseTanke;
 import com.dhl.tanke.abstractfactory.DefaultFactory;
 import com.dhl.tanke.abstractfactory.GameFactory;
-import com.dhl.tanke.abstractfactory.RectFactory;
 
 /**
  * 
