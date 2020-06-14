@@ -4,6 +4,7 @@
 package com.dhl.tanke.abstractfactory;
 
 import com.dhl.tanke.Dir;
+import com.dhl.tanke.GameModel;
 import com.dhl.tanke.Group;
 import com.dhl.tanke.TankeFrame;
 
@@ -15,21 +16,21 @@ import com.dhl.tanke.TankeFrame;
 public class RectFactory extends GameFactory {
 
 	@Override
-	public BaseTanke creatTanke(int x, int y, Dir dir, Group group, TankeFrame tf) {
+	public BaseTanke creatTanke(int x, int y, Dir dir, Group group, GameModel gm) {
 		// TODO Auto-generated method stub
-		return new RectTanke(x, y, dir, group, tf);
+		return new RectTanke(x, y, dir, group, gm);
 	}
 
 	@Override
-	public BaseBullet creatBullet(int x, int y, Dir dir, Group group, TankeFrame tf) {
+	public BaseBullet creatBullet(int x, int y, Dir dir, Group group, GameModel gm) {
 		// TODO Auto-generated method stub
-		return new RectBullet(x, y, dir, group, tf);
+		return new RectBullet(x, y, dir, group, gm);
 	}
 
 	@Override
-	public BaseExplode creatExplode(int x, int y, TankeFrame tf) {
+	public BaseExplode creatExplode(int x, int y, GameModel gm) {
 		// TODO Auto-generated method stub
-		return new RectExplode(x,y,tf);
+		return new RectExplode(x,y,gm);
 	}
 
 }

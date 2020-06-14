@@ -23,18 +23,18 @@ public class Explode extends BaseExplode {
 	public static int HEIGHT =  ResourceMg.explodes[0].getHeight();
 	private int x,y;
 	private int step = 0;
-	TankeFrame tf = null;
+	GameModel gm = null;
 	
-	public Explode(int x, int y,TankeFrame tf) {
+	public Explode(int x, int y,GameModel gm) {
 		this.x = x;
 		this.y = y;
-		this.tf = tf;
+		this.gm = gm;
 	}
 	@Override
 	public void paint(Graphics g){
 		
 		if(step >= ResourceMg.explodes.length){
-			tf.explodes.remove(this);
+			gm.explodes.remove(this);
 			//tf.INSTANCE.explodes.remove(this);
 			System.out.println("step = " + step);
 		}else{

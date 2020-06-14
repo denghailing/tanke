@@ -20,7 +20,7 @@ public class DefaultFireStrategy implements FireStrategy{
 	@Override
 	public void BulletType(Tanke t) {
 		// TODO Auto-generated method stub
-		t.tFrame.bullets.add(t.tFrame.gf.creatBullet(t.bx, t.by, t.dir, t.group, t.tFrame));
+		t.gModel.bullets.add(t.gModel.gf.creatBullet(t.bx, t.by, t.dir, t.group, t.gModel));
 		if(t.group == Group.GOOD){
 			new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 		}

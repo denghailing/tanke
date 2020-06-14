@@ -19,7 +19,7 @@ public class FourDirFireStrategy implements FireStrategy{
 		// TODO Auto-generated method stub
 		Dir[] dirs = Dir.values();
 		for(Dir dir:dirs){
-			t.tFrame.bullets.add(t.tFrame.gf.creatBullet(t.bx, t.by, dir, t.group, t.tFrame));
+			t.gModel.bullets.add(t.gModel.gf.creatBullet(t.bx, t.by, dir, t.group, t.gModel));
 		}
 		if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}

@@ -6,6 +6,7 @@ package com.dhl.tanke.abstractfactory;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.dhl.tanke.GameModel;
 import com.dhl.tanke.ResourceMg;
 import com.dhl.tanke.TankeFrame;
 
@@ -19,18 +20,18 @@ public class RectExplode extends BaseExplode {
 	public static int HEIGHT =  ResourceMg.explodes[0].getHeight();
 	private int x,y;
 	private int step = 0;
-	TankeFrame tf = null;
+	GameModel gm = null;
 	
-	public RectExplode(int x, int y,TankeFrame tf) {
+	public RectExplode(int x, int y,GameModel gm) {
 		this.x = x;
 		this.y = y;
-		this.tf = tf;
+		this.gm = gm;
 	}
 	@Override
 	public void paint(Graphics g){
 		
 		if(step >= ResourceMg.explodes.length){
-			tf.explodes.remove(this);
+			gm.explodes.remove(this);
 			//tf.INSTANCE.explodes.remove(this);
 			System.out.println("step = " + step);
 		}else{

@@ -15,6 +15,7 @@ import org.junit.experimental.theories.Theories;
 import com.dhl.tanke.Audio;
 import com.dhl.tanke.Dir;
 import com.dhl.tanke.Explode;
+import com.dhl.tanke.GameModel;
 import com.dhl.tanke.Group;
 import com.dhl.tanke.ResourceMg;
 import com.dhl.tanke.Tanke;
@@ -34,15 +35,15 @@ public class RectBullet extends BaseBullet {
 	private int x,y;
 	private Dir dir;
 	private boolean living = true;
-	TankeFrame tf = null;
+	GameModel gm = null;
 	private Group group = Group.BAD;
 	
-	public RectBullet(int x, int y, Dir dir,Group group,TankeFrame tf) {
+	public RectBullet(int x, int y, Dir dir,Group group,GameModel gm) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.tf = tf;
+		this.gm = gm;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
@@ -67,7 +68,7 @@ public class RectBullet extends BaseBullet {
 			this.die();
 			int ex = tanke.getX()+Tanke.WIDTH/2 - Explode.WIDTH/2;
 			int ey = tanke.getY()+Tanke.HEIGHT/2 - Explode.HEIGHT/2;
-			tf.explodes.add(tf.gf.creatExplode(ex, ey, tf));
+			gm.explodes.add(gm.gf.creatExplode(ex, ey, gm));
 			new Thread(()-> new Audio("audio/explode.wav").play()).start();
 		}
 	}
@@ -107,7 +108,7 @@ public class RectBullet extends BaseBullet {
 	@Override
 	public void paint(Graphics g){
 		if(!living){
-			tf.bullets.remove(this);
+			gm.bullets.remove(this);
 		}
 //		switch(dir){
 //		case LEFT:
