@@ -19,7 +19,6 @@ import com.dhl.tanke.PropertyMgr;
 import com.dhl.tanke.ResourceMg;
 import com.dhl.tanke.TankeFrame;
 import com.dhl.tanke.abstractfactory.BaseTanke;
-import com.dhl.tanke.strategy.FireStrategy;
 
 /**
  * 

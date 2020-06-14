@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import com.dhl.tanke.strategy.FireStrategy;
-
 /**
  * 
  * @author DHL

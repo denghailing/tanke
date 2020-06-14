@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2013-Now http://denghailing.com All rights reserved.
  */
-package com.dhl.tanke.strategy;
+package com.dhl.tanke;
 
 import com.dhl.tanke.Audio;
 import com.dhl.tanke.Bullet;
