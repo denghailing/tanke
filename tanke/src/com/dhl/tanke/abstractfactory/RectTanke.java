@@ -13,13 +13,13 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
 import com.dhl.tanke.Audio;
 import com.dhl.tanke.Bullet;
 import com.dhl.tanke.Dir;
-import com.dhl.tanke.FireStrategy;
 import com.dhl.tanke.GameModel;
 import com.dhl.tanke.Group;
 import com.dhl.tanke.PropertyMgr;
 import com.dhl.tanke.ResourceMg;
 import com.dhl.tanke.TankeFrame;
 import com.dhl.tanke.abstractfactory.BaseTanke;
+import com.dhl.tanke.strategy.FireStrategy;
 
 /**
  * 
@@ -189,7 +189,8 @@ public class RectTanke extends BaseTanke {
 		//fs.BulletType(this);
 		Dir[] dirs = Dir.values();
 		for(Dir dir:dirs){
-			this.gm.bullets.add(this.gm.gf.creatBullet(this.bx, this.by, dir, this.group, this.gm));
+			//this.gm.bullets.add(this.gm.gf.creatBullet(this.bx, this.by, dir, this.group, this.gm));
+			this.gm.bullets.add(new Bullet(this.bx, this.by, dir, this.group, this.gm));
 		}
 		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}

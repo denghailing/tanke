@@ -68,7 +68,7 @@ public class RectBullet extends BaseBullet {
 			this.die();
 			int ex = tanke.getX()+Tanke.WIDTH/2 - Explode.WIDTH/2;
 			int ey = tanke.getY()+Tanke.HEIGHT/2 - Explode.HEIGHT/2;
-			gm.explodes.add(gm.gf.creatExplode(ex, ey, gm));
+			gm.explodes.add(new Explode(ex, ey, gm));
 			new Thread(()-> new Audio("audio/explode.wav").play()).start();
 		}
 	}

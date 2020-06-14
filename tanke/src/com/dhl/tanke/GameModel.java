@@ -20,17 +20,17 @@ import com.dhl.tanke.abstractfactory.GameFactory;
  * @version 2020年6月14日
  */
 public class GameModel {
-	public List<BaseBullet> bullets = new ArrayList<>();
-	public List<BaseTanke> enemyTank = new ArrayList<>();
-	public List<BaseExplode> explodes = new ArrayList<>();
+	public List<Bullet> bullets = new ArrayList<>();
+	public List<Tanke> enemyTank = new ArrayList<>();
+	public List<Explode> explodes = new ArrayList<>();
 	Tanke myTanke = new Tanke(200, 400, Dir.DOWN,Group.GOOD,this);
 	
-	public GameFactory gf = new DefaultFactory();
+	//public GameFactory gf = new DefaultFactory();
 	public GameModel(){
 		int initTankeCount = PropertyMgr.getInt("initTankeCount");
 		//初始化敌方坦克
 		for(int i = 0; i < initTankeCount; i++){
-			enemyTank.add(gf.creatTanke(50+i*80, 200, Dir.DOWN,Group.BAD,this));
+			enemyTank.add(new Tanke(50+i*80, 200, Dir.DOWN,Group.BAD,this));
 		}
 	}
 	public void paint(Graphics g) {

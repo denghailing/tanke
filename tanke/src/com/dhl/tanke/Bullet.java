@@ -18,7 +18,7 @@ import com.dhl.tanke.abstractfactory.BaseTanke;
  * @author DHL
  * @version 2020年5月25日
  */
-public class Bullet extends BaseBullet {
+public class Bullet extends GameObject {
 	private static final int BULSPED= 10;
 	public static int WIDTH = ResourceMg.bulletd.getWidth();
 	public static int HEIGHT =  ResourceMg.bulletd.getHeight();
@@ -50,7 +50,7 @@ public class Bullet extends BaseBullet {
 		this.group = group;
 	}
 
-	public void collideWith(BaseTanke tanke) {
+	public void collideWith(Tanke tanke) {
 		if(this.group == tanke.getGroup()) return;
 		//用一个rect来记录子弹的位置
 		//Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);

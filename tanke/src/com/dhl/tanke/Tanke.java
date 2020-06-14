@@ -3,33 +3,31 @@
  */
 package com.dhl.tanke;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
-
-import com.dhl.tanke.abstractfactory.BaseTanke;
+import com.dhl.tanke.strategy.FireStrategy;
 
 /**
  * 
  * @author DHL
  * @version 2020年5月25日
  */
-public class Tanke extends BaseTanke {
+public class Tanke extends GameObject{
 	private int x,y;
 	public Dir dir = Dir.DOWN;	
 	private static final int SPEED = 5;
 	private boolean MOVING = true;
 	public static int WIDTH = ResourceMg.goodtanku.getWidth();
 	public static int HEIGHT =  ResourceMg.goodtanku.getHeight();
+	Rectangle rect = new Rectangle();
 	public int bx;
 	public int by;
 	private boolean living = true;
 	private Random random = new Random();
-	FireStrategy fs;
-	GameModel gModel;
+	public FireStrategy fs;
+	public GameModel gModel;
 	public Group getGroup() {
 		return group;
 	}
@@ -49,6 +47,7 @@ public class Tanke extends BaseTanke {
 		rect.height = HEIGHT;
 		if(this.group == Group.GOOD){
 			String goodfire = PropertyMgr.getString("goodfs");
+			System.out.println("goodfire =" + goodfire);
 			try {
 				this.fs = (FireStrategy)Class.forName(goodfire).newInstance();
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -71,11 +70,9 @@ public class Tanke extends BaseTanke {
 			}
 		}
 	}
-	@Override
 	public int getX() {
 		return x;
 	}
-	@Override
 	public int getY() {
 		return y;
 	}
