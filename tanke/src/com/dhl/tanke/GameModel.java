@@ -13,6 +13,10 @@ import com.dhl.tanke.abstractfactory.BaseExplode;
 import com.dhl.tanke.abstractfactory.BaseTanke;
 import com.dhl.tanke.abstractfactory.DefaultFactory;
 import com.dhl.tanke.abstractfactory.GameFactory;
+import com.dhl.tanke.cor.TankeTankeCollider;
+import com.dhl.tanke.cor.BulletTankeCollider;
+import com.dhl.tanke.cor.Collider;
+import com.dhl.tanke.cor.ColliderChain;
 
 /**
  * 
@@ -20,12 +24,12 @@ import com.dhl.tanke.abstractfactory.GameFactory;
  * @version 2020年6月14日
  */
 public class GameModel {
-//	public List<Bullet> bullets = new ArrayList<>();
-//	public List<Tanke> enemyTank = new ArrayList<>();
-//	public List<Explode> explodes = new ArrayList<>();
+
 	Tanke myTanke = new Tanke(200, 400, Dir.DOWN,Group.GOOD,this);
 	private List<GameObject> objects = new ArrayList<>();
-	
+	//Collider collider = new BulletTankeCollider();
+	//Collider collider2 = new TankeTankeCollider();
+	ColliderChain colliderChain = new ColliderChain();
 	//public GameFactory gf = new DefaultFactory();
 	public GameModel(){
 		int initTankeCount = PropertyMgr.getInt("initTankeCount");
@@ -45,12 +49,22 @@ public class GameModel {
 		for (int i = 0;i < objects.size();i++){
 			objects.get(i).paint(g);
 		}
+		//相互碰撞
+		for (int i=0;i < objects.size();i++){
+			for(int j=0;j < objects.size();j++){
+				GameObject o1 = objects.get(i);
+				GameObject o2 = objects.get(j);
+				//collider.collide(o1, o2);
+				//collider2.collide(o1, o2);
+				colliderChain.collide(o1,o2);
+			}
+		}
+		
 		
 //		for(int i = 0;i < bullets.size();i++ ){
 //			for(int j = 0;j < enemyTank.size();j++)
 //				bullets.get(i).collideWith(enemyTank.get(j));
 //		}
-		//e.paint(g);
 	}
 	public Tanke getmyTanke() {
 		// TODO Auto-generated method stub

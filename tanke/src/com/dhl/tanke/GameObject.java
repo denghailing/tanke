@@ -14,5 +14,4 @@ public abstract class GameObject {
 	int x,y;
 	public Group group;
 	public abstract void paint(Graphics g);
-
 }

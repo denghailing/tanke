@@ -28,7 +28,6 @@ public class Bullet extends GameObject {
 	private boolean living = true;
 	GameModel gm = null;
 	private Group group = Group.BAD;
-	
 	public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
 		this.x = x;
 		this.y = y;
@@ -41,17 +40,9 @@ public class Bullet extends GameObject {
 		rect.height = HEIGHT;
 		gm.add(this);
 	}
-
-	public Group getGroup() {
-		return group;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public void collideWith(Tanke tanke) {
-		if(this.group == tanke.getGroup()) return;
+	
+	public boolean collideWith(Tanke tanke) {
+		if(this.group == tanke.getGroup()) return false;
 		//用一个rect来记录子弹的位置
 		//Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
 		//Rectangle rectangle2 = new Rectangle(tanke.getX() ,tanke.getY(),tanke.WIDTH,tanke.HEIGHT);
@@ -60,14 +51,25 @@ public class Bullet extends GameObject {
 			this.die();
 			int ex = tanke.getX()+Tanke.WIDTH/2 - Explode.WIDTH/2;
 			int ey = tanke.getY()+Tanke.HEIGHT/2 - Explode.HEIGHT/2;
-			//gm.explodes.add(gm.gf.creatExplode(ex, ey, tf));
 			gm.add(new Explode(ex, ey, gm));
+			//gm.remove(this);
+			//gm.remove(tanke);
 			new Thread(()-> new Audio("audio/explode.wav").play()).start();
+			return true;
 		}
+		return true;
 	}
 
 	private void die() {
 		this.living = false;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public Rectangle getRect() {
+		return rect;
 	}
 
 	public int getX() {
@@ -98,6 +100,7 @@ public class Bullet extends GameObject {
 		rect.y = this.y;
 		if(x<0||y<0||x>TankeFrame.GAME_WIDTH||y > TankeFrame.GAME_HEIGHT) living = false;
 	}
+
 	@Override
 	public void paint(Graphics g){
 		if(!living){
@@ -120,6 +123,9 @@ public class Bullet extends GameObject {
 			break;
 		}
 		move();
+	}
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 	public void setX(int x) {
 		this.x = x;

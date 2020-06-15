@@ -14,27 +14,23 @@ import com.dhl.tanke.strategy.FireStrategy;
  * @author DHL
  * @version 2020年5月25日
  */
-public class Tanke extends GameObject{
-	private int x,y;
-	public Dir dir = Dir.DOWN;	
+public class Tanke extends GameObject {
 	private static final int SPEED = 5;
-	private boolean MOVING = true;
 	public static int WIDTH = ResourceMg.goodtanku.getWidth();
-	public static int HEIGHT =  ResourceMg.goodtanku.getHeight();
+	public static int HEIGHT = ResourceMg.goodtanku.getHeight();
+	private int x, y;
+	public Dir dir = Dir.DOWN;
+	private boolean MOVING = true;
 	Rectangle rect = new Rectangle();
+	public int ax;
+	public int ay;
 	public int bx;
 	public int by;
 	private boolean living = true;
 	private Random random = new Random();
 	public FireStrategy fs;
 	public GameModel gModel;
-	public Group getGroup() {
-		return group;
-	}
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-	public Tanke(int x, int y, Dir dir,Group group,GameModel gm) {
+	public Tanke(int x, int y, Dir dir, Group group, GameModel gm) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -45,19 +41,18 @@ public class Tanke extends GameObject{
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		if(this.group == Group.GOOD){
+		if (this.group == Group.GOOD) {
 			String goodfire = PropertyMgr.getString("goodfs");
 			System.out.println("goodfire =" + goodfire);
 			try {
-				this.fs = (FireStrategy)Class.forName(goodfire).newInstance();
+				this.fs = (FireStrategy) Class.forName(goodfire).newInstance();
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-		}
-		else{
+		} else {
 			String badfire = PropertyMgr.getString("badfs");
 			try {
-				this.fs = (FireStrategy)Class.forName(badfire).newInstance();
+				this.fs = (FireStrategy) Class.forName(badfire).newInstance();
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -70,51 +65,63 @@ public class Tanke extends GameObject{
 			}
 		}
 	}
+
+	private void BoundsCheck() {
+		if (this.x < 2)
+			x = 2;
+		if (this.y < 28)
+			y = 28;
+		if (this.x > TankeFrame.GAME_WIDTH - Tanke.WIDTH - 2)
+			x = TankeFrame.GAME_WIDTH - Tanke.WIDTH - 2;
+		if (this.y > TankeFrame.GAME_HEIGHT - Tanke.HEIGHT - 2)
+			y = TankeFrame.GAME_HEIGHT - Tanke.HEIGHT - 2;
+	}
+
+	public void die() {
+		this.living = false;
+	}
+
+	public void fire() {
+		fs.BulletType(this);
+		//		Dir[] dirs = Dir.values();
+		//		for(Dir dir:dirs){
+		//			this.tFrame.bullets.add(this.tFrame.gf.creatBullet(this.bx, this.by, dir, this.group, this.tFrame));
+		//		}
+		//		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+	}
+
+	public Dir getDir() {
+		return dir;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public Rectangle getRect() {
+		return rect;
+	}
+
 	public int getX() {
 		return x;
 	}
+
 	public int getY() {
 		return y;
 	}
-	public void setX(int x) {
-		this.x = x;
+
+	public boolean isLiving() {
+		return this.living;
 	}
-	public void setY(int y) {
-		this.y = y;
-	}
-	@Override
-	public void paint(Graphics g){
-		if(!living) gModel.remove(this);
-		switch(dir){
-		case LEFT:
-			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2-40;
-			by = this.y+Tanke.HEIGHT/2 - Bullet.HEIGHT/2;
-			g.drawImage(this.group == Group.GOOD? ResourceMg.goodtankl:ResourceMg.badtankl, x, y, null);
-			break;
-		case RIGHT:
-			bx = this.x+Tanke.WIDTH/2 +25;
-			by = this.y+Tanke.HEIGHT/2 - Bullet.HEIGHT/2;
-			g.drawImage(this.group == Group.GOOD? ResourceMg.goodtankr:ResourceMg.badtankr, x, y, null);
-			break;
-		case UP:
-			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2;
-			by = this.y+Tanke.HEIGHT/2 - Bullet.HEIGHT/2 -34;
-			g.drawImage(this.group == Group.GOOD? ResourceMg.goodtanku:ResourceMg.badtanku, x, y, null);
-			break;
-		case DOWN:
-			bx = this.x+Tanke.WIDTH/2 - Bullet.WIDTH/2;
-			by = this.y+Tanke.HEIGHT/2 + 20;
-			g.drawImage(this.group == Group.GOOD? ResourceMg.goodtankd:ResourceMg.badtankd, x, y, null);
-			break;
-		default:
-			break;
-		}
-		move();
+
+	public boolean isMOVING() {
+		return MOVING;
 	}
 
 	private void move() {
-		if(!MOVING) return;
-		switch(dir){
+		if (!MOVING)
+			return;
+		switch (dir) {
 		case LEFT:
 			x -= SPEED;
 			break;
@@ -129,52 +136,74 @@ public class Tanke extends GameObject{
 			break;
 		}
 		//randomDir();
-		if(this.group == Group.BAD && random.nextInt(100) > 95) this.fire();
-		if(this.group == Group.BAD && random.nextInt(100) > 95) randomDir();
+		if (this.group == Group.BAD && random.nextInt(100) > 95)
+			this.fire();
+		if (this.group == Group.BAD && random.nextInt(100) > 95)
+			randomDir();
 		BoundsCheck();
 		//update rect
 		rect.x = this.x;
 		rect.y = this.y;
+		ax = this.x;
+		ay = this.y;
 	}
 
-	private void BoundsCheck() {
-		if(this.x < 2) x = 2;
-		if(this.y < 28) y =28;
-		if(this.x > TankeFrame.GAME_WIDTH - Tanke.WIDTH - 2) x = TankeFrame.GAME_WIDTH- Tanke.WIDTH - 2;
-		if(this.y > TankeFrame.GAME_HEIGHT - Tanke.HEIGHT - 2) y = TankeFrame.GAME_HEIGHT - Tanke.HEIGHT - 2;	
+	@Override
+	public void paint(Graphics g) {
+		if (!living)
+			gModel.remove(this);
+		switch (dir) {
+		case LEFT:
+			bx = this.x + Tanke.WIDTH / 2 - Bullet.WIDTH / 2 - 40;
+			by = this.y + Tanke.HEIGHT / 2 - Bullet.HEIGHT / 2;
+			g.drawImage(this.group == Group.GOOD ? ResourceMg.goodtankl : ResourceMg.badtankl, x, y, null);
+			break;
+		case RIGHT:
+			bx = this.x + Tanke.WIDTH / 2 + 25;
+			by = this.y + Tanke.HEIGHT / 2 - Bullet.HEIGHT / 2;
+			g.drawImage(this.group == Group.GOOD ? ResourceMg.goodtankr : ResourceMg.badtankr, x, y, null);
+			break;
+		case UP:
+			bx = this.x + Tanke.WIDTH / 2 - Bullet.WIDTH / 2;
+			by = this.y + Tanke.HEIGHT / 2 - Bullet.HEIGHT / 2 - 34;
+			g.drawImage(this.group == Group.GOOD ? ResourceMg.goodtanku : ResourceMg.badtanku, x, y, null);
+			break;
+		case DOWN:
+			bx = this.x + Tanke.WIDTH / 2 - Bullet.WIDTH / 2;
+			by = this.y + Tanke.HEIGHT / 2 + 20;
+			g.drawImage(this.group == Group.GOOD ? ResourceMg.goodtankd : ResourceMg.badtankd, x, y, null);
+			break;
+		default:
+			break;
+		}
+		move();
 	}
+
 	private void randomDir() {
 		this.dir = Dir.values()[random.nextInt(4)];
 	}
+
 	public void setDir(Dir dir) {
 		this.dir = dir;
 	}
-	
-	public Dir getDir() {
-		return dir;
-	}
 
-	public boolean isMOVING() {
-		return MOVING;
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 	public void setMOVING(boolean mOVING) {
 		MOVING = mOVING;
 	}
 
-	public void fire() {
-		fs.BulletType(this);
-//		Dir[] dirs = Dir.values();
-//		for(Dir dir:dirs){
-//			this.tFrame.bullets.add(this.tFrame.gf.creatBullet(this.bx, this.by, dir, this.group, this.tFrame));
-//		}
-//		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+	public void setX(int x) {
+		this.x = x;
 	}
 
-	public void die() {
-		this.living = false;
+	public void setY(int y) {
+		this.y = y;
 	}
-	public boolean isLiving() {
-		return this.living;
+	public void afterPosition(){
+		this.bx = ax;
+		this.by = ay;
 	}
 }
