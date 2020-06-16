@@ -20,18 +20,17 @@ public class Explode extends GameObject {
 	public static int HEIGHT =  ResourceMg.explodes[0].getHeight();
 	private int x,y;
 	private int step = 0;
-	GameModel gm = null;
 	
-	public Explode(int x, int y,GameModel gm) {
+	public Explode(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.gm = gm;
+		GameModel.getInstance().add(this);
 	}
 	@Override
 	public void paint(Graphics g){
 		
 		if(step >= ResourceMg.explodes.length){
-			gm.remove(this);
+			GameModel.getInstance().remove(this);
 			//tf.INSTANCE.explodes.remove(this);
 			System.out.println("step = " + step);
 		}else{

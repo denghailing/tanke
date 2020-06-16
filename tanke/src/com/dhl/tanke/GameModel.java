@@ -24,16 +24,24 @@ import com.dhl.tanke.cor.ColliderChain;
  * @version 2020年6月14日
  */
 public class GameModel {
-
-	Tanke myTanke = new Tanke(200, 400, Dir.DOWN,Group.GOOD,this);
+	private static final GameModel INSTANCE = new GameModel();
+	
+	Tanke myTanke;
 	private List<GameObject> objects = new ArrayList<>();
 	ColliderChain colliderChain = new ColliderChain();
 	//public GameFactory gf = new DefaultFactory();
-	public GameModel(){
+	
+	public static GameModel getInstance(){
+		return INSTANCE;
+	}
+	
+	GameModel(){
+		myTanke = new Tanke(200, 400, Dir.DOWN, Group.GOOD);
+		add(myTanke);
 		int initTankeCount = PropertyMgr.getInt("initTankeCount");
 		//初始化敌方坦克
 		for(int i = 0; i < initTankeCount; i++){
-			add(new Tanke(i*200, 50, Dir.DOWN,Group.BAD,this));
+			add(new Tanke(i*200, 50, Dir.DOWN,Group.BAD));
 		}
 		add(new Wall(150,150, 200, 50));
 		add(new Wall(500,150, 200, 50));
@@ -60,13 +68,13 @@ public class GameModel {
 				//collider2.collide(o1, o2);
 				colliderChain.collide(o1,o2);
 			}
+		}		
+		int sum = 0;
+		for(int i = 0;i < objects.size();i++ ){
+			if(objects.get(i) instanceof Bullet)
+				sum++;
 		}
-		
-		
-//		for(int i = 0;i < bullets.size();i++ ){
-//			for(int j = 0;j < enemyTank.size();j++)
-//				bullets.get(i).collideWith(enemyTank.get(j));
-//		}
+		g.drawString("子弹数量："+ sum,10,60);
 	}
 	public Tanke getmyTanke() {
 		// TODO Auto-generated method stub

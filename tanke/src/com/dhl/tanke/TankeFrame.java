@@ -28,7 +28,7 @@ import com.dhl.tanke.abstractfactory.GameFactory;
  * @version 2020年5月23日
  */
 public class TankeFrame extends Frame{
-	GameModel gModel= new GameModel(); 
+	GameModel gModel= GameModel.getInstance();
 	
 	public static final int GAME_WIDTH = 1080;
 	public static final int GAME_HEIGHT = 960;

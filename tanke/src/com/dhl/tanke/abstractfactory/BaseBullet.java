@@ -14,5 +14,4 @@ import com.dhl.tanke.Tanke;
  */
 public abstract class  BaseBullet {
 	public abstract void paint(Graphics g);
-	public abstract void collideWith(BaseTanke baseTanke);
 }

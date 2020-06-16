@@ -5,5 +5,5 @@ bulletspeed=10
 gamewidth=1080
 gameheight=720
 #FireStrategy
-goodfs=com.dhl.tanke.strategy.FourDirFireStrategy
+goodfs=com.dhl.tanke.strategy.DefaultFireStrategy
 badfs=com.dhl.tanke.strategy.DefaultFireStrategy

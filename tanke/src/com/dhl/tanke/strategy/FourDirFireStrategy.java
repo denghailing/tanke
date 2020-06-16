@@ -17,23 +17,13 @@ import com.dhl.tanke.Tanke;
  * @version 2020年6月3日
  */
 public class FourDirFireStrategy implements FireStrategy{
-
 	@Override
-	public void BulletType(Tanke t) {
-		// TODO Auto-generated method stub
+	public void fire(Tanke t) {
 		Dir[] dirs = Dir.values();
 		for(Dir dir:dirs){
-			t.gModel.add(new Bullet(t.bx, t.by, dir, t.group, t.gModel));
+			new Bullet(t.bx, t.by, dir, t.group);
 		}
 		if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
-//	@Override
-//	public void fire(Tanke t) {
-//		Dir[] dirs = Dir.values();
-//		for(Dir dir:dirs){
-//			t.tFrame.bullets.add(t.tFrame.gf.creatBullet(t.bx, t.by, dir, t.group, t.tFrame));
-//		}
-//		if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
-//	}
 	
 }

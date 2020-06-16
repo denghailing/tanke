@@ -7,6 +7,7 @@ import com.dhl.tanke.Audio;
 import com.dhl.tanke.Bullet;
 import com.dhl.tanke.Group;
 import com.dhl.tanke.Tanke;
+import com.dhl.tanke.abstractfactory.BaseTanke;
 
 /**
  * 
@@ -14,17 +15,9 @@ import com.dhl.tanke.Tanke;
  * @version 2020年6月3日
  */
 public class DefaultFireStrategy implements FireStrategy{
-//	@Override
-//	public void fire(BaseTanke t) {
-//		t.tFrame.bullets.add(t.tFrame.gf.creatBullet(t.bx, t.by, t.dir, t.group, t.tFrame));
-//		if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
-//	}
-	
 	@Override
-	public void BulletType(Tanke t) {
-		t.gModel.add(new Bullet(t.bx, t.by, t.dir, t.group, t.gModel));
-		if(t.group == Group.GOOD){
-			new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
-		}
+	public void fire(Tanke t) {
+		new Bullet(t.bx, t.by, t.dir, t.group);
+		if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
 }

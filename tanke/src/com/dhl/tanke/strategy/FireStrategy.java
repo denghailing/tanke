@@ -11,5 +11,5 @@ import com.dhl.tanke.Tanke;
  * @version 2020年6月3日
  */
 public interface FireStrategy {
-	public void BulletType(Tanke t);
+	public void fire(Tanke t);
 }

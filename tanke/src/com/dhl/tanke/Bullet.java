@@ -25,41 +25,20 @@ public class Bullet extends GameObject {
 	public Rectangle rect = new Rectangle();
 	private int x,y;
 	private Dir dir;
-	private boolean living = true;
-	GameModel gm = null;
+	public boolean living = true;
 	private Group group = Group.BAD;
-	public Bullet(int x, int y, Dir dir,Group group,GameModel gm) {
+	public Bullet(int x, int y, Dir dir,Group group) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.gm = gm;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		gm.add(this);
+		GameModel.getInstance().add(this);
 	}
 	
-	public boolean collideWith(Tanke tanke) {
-		if(this.group == tanke.getGroup()) return false;
-		//用一个rect来记录子弹的位置
-		//Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-		//Rectangle rectangle2 = new Rectangle(tanke.getX() ,tanke.getY(),tanke.WIDTH,tanke.HEIGHT);
-		if(this.living && tanke.isLiving() && this.rect.intersects(tanke.rect)){
-			tanke.die();
-			this.die();
-			int ex = tanke.getX()+Tanke.WIDTH/2 - Explode.WIDTH/2;
-			int ey = tanke.getY()+Tanke.HEIGHT/2 - Explode.HEIGHT/2;
-			gm.add(new Explode(ex, ey, gm));
-			//gm.remove(this);
-			//gm.remove(tanke);
-			new Thread(()-> new Audio("audio/explode.wav").play()).start();
-			return true;
-		}
-		return true;
-	}
-
 	public void die() {
 		this.living = false;
 	}
@@ -104,7 +83,7 @@ public class Bullet extends GameObject {
 	@Override
 	public void paint(Graphics g){
 		if(!living){
-			gm.remove(this);
+			GameModel.getInstance().remove(this);
 		}
 		switch(dir){
 		case LEFT:

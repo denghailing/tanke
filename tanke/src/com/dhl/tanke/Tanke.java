@@ -29,21 +29,18 @@ public class Tanke extends GameObject {
 	private boolean living = true;
 	private Random random = new Random();
 	public FireStrategy fs;
-	public GameModel gModel;
-	public Tanke(int x, int y, Dir dir, Group group, GameModel gm) {
+	public Tanke(int x, int y, Dir dir, Group group) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 		this.group = group;
-		this.gModel = gm;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
 		if (this.group == Group.GOOD) {
 			String goodfire = PropertyMgr.getString("goodfs");
-			System.out.println("goodfire =" + goodfire);
 			try {
 				this.fs = (FireStrategy) Class.forName(goodfire).newInstance();
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
@@ -64,6 +61,7 @@ public class Tanke extends GameObject {
 				e.printStackTrace();
 			}
 		}
+		//GameModel.getInstance().add(this);
 	}
 
 	private void BoundsCheck() {
@@ -82,12 +80,7 @@ public class Tanke extends GameObject {
 	}
 
 	public void fire() {
-		fs.BulletType(this);
-		//		Dir[] dirs = Dir.values();
-		//		for(Dir dir:dirs){
-		//			this.tFrame.bullets.add(this.tFrame.gf.creatBullet(this.bx, this.by, dir, this.group, this.tFrame));
-		//		}
-		//		if(this.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
+		fs.fire(this);
 	}
 
 	public Dir getDir() {
@@ -151,7 +144,7 @@ public class Tanke extends GameObject {
 	@Override
 	public void paint(Graphics g) {
 		if (!living)
-			gModel.remove(this);
+			GameModel.getInstance().remove(this);
 		switch (dir) {
 		case LEFT:
 			bx = this.x + Tanke.WIDTH / 2 - Bullet.WIDTH / 2 - 40;
