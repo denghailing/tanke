@@ -21,7 +21,7 @@ public class Tanke extends GameObject {
 	private int x, y;
 	public Dir dir = Dir.DOWN;
 	private boolean MOVING = true;
-	Rectangle rect = new Rectangle();
+	public Rectangle rect = new Rectangle();
 	public int ax;
 	public int ay;
 	public int bx;
@@ -119,6 +119,8 @@ public class Tanke extends GameObject {
 	}
 
 	private void move() {
+		ax = this.x;
+		ay = this.y;
 		if (!MOVING)
 			return;
 		switch (dir) {
@@ -144,8 +146,6 @@ public class Tanke extends GameObject {
 		//update rect
 		rect.x = this.x;
 		rect.y = this.y;
-		ax = this.x;
-		ay = this.y;
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class Tanke extends GameObject {
 		this.y = y;
 	}
 	public void afterPosition(){
-		this.bx = ax;
-		this.by = ay;
+		this.x = ax;
+		this.y = ay;
 	}
 }

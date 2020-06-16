@@ -18,7 +18,9 @@ public class ColliderChain implements Collider{
 	private List<Collider> colliders = new LinkedList<>();
 	public ColliderChain(){
 		add(new BulletTankeCollider());
-		add(new TankeTankeCollider());
+		//add(new TankeTankeCollider());
+		add(new BulletWallCollider());
+		add(new TankeWallCollider());
 	}
 	public void add(Collider c){
 		colliders.add(c);

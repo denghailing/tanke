@@ -60,7 +60,7 @@ public class Bullet extends GameObject {
 		return true;
 	}
 
-	private void die() {
+	public void die() {
 		this.living = false;
 	}
 

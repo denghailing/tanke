@@ -27,16 +27,18 @@ public class GameModel {
 
 	Tanke myTanke = new Tanke(200, 400, Dir.DOWN,Group.GOOD,this);
 	private List<GameObject> objects = new ArrayList<>();
-	//Collider collider = new BulletTankeCollider();
-	//Collider collider2 = new TankeTankeCollider();
 	ColliderChain colliderChain = new ColliderChain();
 	//public GameFactory gf = new DefaultFactory();
 	public GameModel(){
 		int initTankeCount = PropertyMgr.getInt("initTankeCount");
 		//初始化敌方坦克
 		for(int i = 0; i < initTankeCount; i++){
-			add(new Tanke(50+i*80, 200, Dir.DOWN,Group.BAD,this));
+			add(new Tanke(i*200, 50, Dir.DOWN,Group.BAD,this));
 		}
+		add(new Wall(150,150, 200, 50));
+		add(new Wall(500,150, 200, 50));
+		add(new Wall(300,300, 50, 200));
+		add(new Wall(550,300, 50, 200));
 	}
 	public void paint(Graphics g) {
 		myTanke.paint(g);
