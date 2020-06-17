@@ -11,7 +11,7 @@ import java.awt.Graphics;
  * @version 2020年6月14日
  */
 public abstract class GameObject {
-	int x,y;
+	public int x,y,w,h;
 	public Group group;
 	public abstract void paint(Graphics g);
 }

@@ -16,7 +16,7 @@ public class main {
 	public static void main(String[] args) throws InterruptedException{
 		TankeFrame frame = new TankeFrame();
 		while(true){
-			Thread.sleep(50);
+			Thread.sleep(1000);
 			frame.repaint();
 		}
 	}

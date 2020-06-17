@@ -13,7 +13,6 @@ import java.awt.Rectangle;
  * @version 2020年6月16日
  */
 public class Wall extends GameObject{
-	int w,h;
 	public Rectangle rect;
 	public Wall(int x,int y,int w, int h) {
 		super();

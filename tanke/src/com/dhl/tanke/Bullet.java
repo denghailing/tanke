@@ -19,24 +19,25 @@ import com.dhl.tanke.abstractfactory.BaseTanke;
  * @version 2020年5月25日
  */
 public class Bullet extends GameObject {
-	private static final int BULSPED= 10;
+	private static final int BULSPED= 40;
 	public static int WIDTH = ResourceMg.bulletd.getWidth();
 	public static int HEIGHT =  ResourceMg.bulletd.getHeight();
 	public Rectangle rect = new Rectangle();
-	private int x,y;
 	private Dir dir;
 	public boolean living = true;
 	private Group group = Group.BAD;
 	public Bullet(int x, int y, Dir dir,Group group) {
 		this.x = x;
 		this.y = y;
+		this.w = WIDTH;
+		this.h = HEIGHT;
 		this.dir = dir;
 		this.group = group;
 		rect.x = this.x;
 		rect.y = this.y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		GameModel.getInstance().add(this);
+		//GameModel.getInstance().add(this);
 	}
 	
 	public void die() {
@@ -102,6 +103,7 @@ public class Bullet extends GameObject {
 			break;
 		}
 		move();
+		System.out.println("W = " + w + " |h = "+h);
 	}
 	public void setGroup(Group group) {
 		this.group = group;

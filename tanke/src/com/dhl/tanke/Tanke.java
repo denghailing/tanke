@@ -18,7 +18,6 @@ public class Tanke extends GameObject {
 	private static final int SPEED = 5;
 	public static int WIDTH = ResourceMg.goodtanku.getWidth();
 	public static int HEIGHT = ResourceMg.goodtanku.getHeight();
-	private int x, y;
 	public Dir dir = Dir.DOWN;
 	private boolean MOVING = true;
 	public Rectangle rect = new Rectangle();
@@ -33,6 +32,8 @@ public class Tanke extends GameObject {
 		super();
 		this.x = x;
 		this.y = y;
+		this.w = WIDTH;
+		this.h = HEIGHT;
 		this.dir = dir;
 		this.group = group;
 		rect.x = this.x;
@@ -61,7 +62,12 @@ public class Tanke extends GameObject {
 				e.printStackTrace();
 			}
 		}
-		//GameModel.getInstance().add(this);
+		GameModel.getInstance().add(this);
+	}
+
+	public void afterPosition(){
+		this.x = ax;
+		this.y = ay;
 	}
 
 	private void BoundsCheck() {
@@ -183,7 +189,6 @@ public class Tanke extends GameObject {
 	public void setGroup(Group group) {
 		this.group = group;
 	}
-
 	public void setMOVING(boolean mOVING) {
 		MOVING = mOVING;
 	}
@@ -194,9 +199,5 @@ public class Tanke extends GameObject {
 
 	public void setY(int y) {
 		this.y = y;
-	}
-	public void afterPosition(){
-		this.x = ax;
-		this.y = ay;
 	}
 }

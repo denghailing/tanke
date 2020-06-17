@@ -34,10 +34,14 @@ public class GameModel {
 	public static GameModel getInstance(){
 		return INSTANCE;
 	}
-	
-	GameModel(){
+	//将原本初始化的语句放到init中，静态语句块在类加载时执行
+	static{
+		INSTANCE.init();
+	}
+	private  GameModel(){}
+	//打破new  Tanke 里面又调用构造方法，构造方法里面又new Tanke的循环
+	private void init(){
 		myTanke = new Tanke(200, 400, Dir.DOWN, Group.GOOD);
-		add(myTanke);
 		int initTankeCount = PropertyMgr.getInt("initTankeCount");
 		//初始化敌方坦克
 		for(int i = 0; i < initTankeCount; i++){

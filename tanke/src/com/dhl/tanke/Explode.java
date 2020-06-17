@@ -18,12 +18,13 @@ import com.dhl.tanke.abstractfactory.BaseExplode;
 public class Explode extends GameObject {
 	public static int WIDTH = ResourceMg.explodes[0].getWidth();
 	public static int HEIGHT =  ResourceMg.explodes[0].getHeight();
-	private int x,y;
 	private int step = 0;
 	
 	public Explode(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.w = WIDTH;
+		this.h = HEIGHT;
 		GameModel.getInstance().add(this);
 	}
 	@Override
