@@ -20,10 +20,11 @@ import com.dhl.tanke.decorator.TallDecorator;
 public class DefaultFireStrategy implements FireStrategy{
 	@Override
 	public void fire(Tanke t) {
-		//new Bullet(t.bx, t.by, t.dir, t.group);
-		new RectDecorator(
-				new TallDecorator(
-				(new Bullet(t.bx, t.by, t.dir, t.group))));
+		new Bullet(t.bx, t.by, t.dir, t.group);
+		//用了装饰者模式
+//		new RectDecorator(
+//				new TallDecorator(
+//				(new Bullet(t.bx, t.by, t.dir, t.group))));
 		if(t.group == Group.GOOD) new Thread(()->new Audio("audio/tank_fire.wav").play()).start();
 	}
 }
