@@ -5,8 +5,14 @@ package com.dhl.tanke;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
+import com.dhl.tanke.observer.TankeFireEvent;
+import com.dhl.tanke.observer.TankeFireHandler;
+import com.dhl.tanke.observer.TankeObserver;
 import com.dhl.tanke.strategy.FireStrategy;
 
 /**
@@ -19,6 +25,7 @@ public class Tanke extends GameObject {
 	public static int WIDTH = ResourceMg.goodtanku.getWidth();
 	public static int HEIGHT = ResourceMg.goodtanku.getHeight();
 	public Dir dir = Dir.DOWN;
+	private int fireStrategy;
 	private boolean MOVING = true;
 	public Rectangle rect = new Rectangle();
 	public int ax;
@@ -27,7 +34,8 @@ public class Tanke extends GameObject {
 	public int by;
 	private boolean living = true;
 	private Random random = new Random();
-	public FireStrategy fs;
+	public FireStrategy fs[] = new FireStrategy[3];
+	public FireStrategy bS;
 	public Tanke(int x, int y, Dir dir, Group group) {
 		super();
 		this.x = x;
@@ -41,16 +49,20 @@ public class Tanke extends GameObject {
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
 		if (this.group == Group.GOOD) {
-			String goodfire = PropertyMgr.getString("goodfs");
+			String goodfire1 = PropertyMgr.getString("goodfs");
+			String[]  goodfire = goodfire1.split("\\|");
+			//System.out.println(goodfire);
 			try {
-				this.fs = (FireStrategy) Class.forName(goodfire).newInstance();
+				for(int i = 0 ;i < goodfire.length;i++){
+					this.fs[i] = (FireStrategy) Class.forName(goodfire[i]).newInstance();
+				}
 			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		} else {
 			String badfire = PropertyMgr.getString("badfs");
 			try {
-				this.fs = (FireStrategy) Class.forName(badfire).newInstance();
+				this.bS = (FireStrategy) Class.forName(badfire).newInstance();
 			} catch (InstantiationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -85,8 +97,13 @@ public class Tanke extends GameObject {
 		this.living = false;
 	}
 
-	public void fire() {
-		fs.fire(this);
+	public void fire(int i) {
+		if(this.group == Group.GOOD)
+			fs[i].fire(this);
+		else{
+			int len = fs.length;
+			bS.fire(this);
+		}
 	}
 
 	public Dir getDir() {
@@ -138,7 +155,7 @@ public class Tanke extends GameObject {
 		}
 		//randomDir();
 		if (this.group == Group.BAD && random.nextInt(100) > 95)
-			this.fire();
+			this.fire(0);
 		if (this.group == Group.BAD && random.nextInt(100) > 95)
 			randomDir();
 		BoundsCheck();
@@ -199,5 +216,30 @@ public class Tanke extends GameObject {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	private TankeObserver[] list = {new TankeFireHandler()};
+	private List<TankeObserver> fireob = Arrays.asList(list);
+	public void handFireKey() {
+		this.setFireStrategy(0);
+		TankeFireEvent event = new TankeFireEvent(this);
+		for(TankeObserver tObserver : fireob){
+			tObserver.actionOnFire(event);
+		}
+	}
+
+	public void StrategyFireKey() {
+		this.setFireStrategy(1);
+		TankeFireEvent event = new TankeFireEvent(this);
+		for(TankeObserver tObserver : fireob){
+			tObserver.actionOnFire(event);
+		}
+	}
+
+	public int getFireStrategy() {
+		return fireStrategy;
+	}
+
+	public void setFireStrategy(int fireStrategy) {
+		this.fireStrategy = fireStrategy;
 	}
 }

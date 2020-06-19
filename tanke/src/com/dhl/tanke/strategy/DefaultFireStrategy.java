@@ -20,7 +20,7 @@ import com.dhl.tanke.decorator.TallDecorator;
 public class DefaultFireStrategy implements FireStrategy{
 	@Override
 	public void fire(Tanke t) {
-		new Bullet(t.bx, t.by, t.dir, t.group);
+		GameModel.getInstance().add(new Bullet(t.bx, t.by, t.dir, t.group));
 		//用了装饰者模式
 //		new RectDecorator(
 //				new TallDecorator(
