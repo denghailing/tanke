@@ -114,7 +114,10 @@ public class TankeFrame extends Frame{
 				bd = false;
 				break;
 			case KeyEvent.VK_SPACE:
-				gModel.getmyTanke().fire();
+				gModel.getmyTanke().handFireKey();
+				break;
+			case KeyEvent.VK_SHIFT:
+				gModel.getmyTanke().StrategyFireKey();
 				break;
 			default:
 				break;
