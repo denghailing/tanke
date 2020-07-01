@@ -5,6 +5,13 @@ package com.dhl.tanke;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +32,7 @@ import com.dhl.tanke.cor.ColliderChain;
  */
 public class GameModel {
 	private static final GameModel INSTANCE = new GameModel();
-	
+	private String path = PropertyMgr.getString("savePath");
 	Tanke myTanke;
 	private List<GameObject> objects = new ArrayList<>();
 	ColliderChain colliderChain = new ColliderChain();
@@ -81,7 +88,6 @@ public class GameModel {
 		g.drawString("子弹数量："+ sum,10,60);
 	}
 	public Tanke getmyTanke() {
-		// TODO Auto-generated method stub
 		return myTanke;
 	}
 	public void add(GameObject go){
@@ -89,5 +95,39 @@ public class GameModel {
 	}
 	public void remove(GameObject go){
 		this.objects.remove(go);
+	}
+	public void save(){
+		File f = new File(path);
+		if(!f.exists())
+			f.getParentFile().mkdirs();
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			try {
+				ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(f));
+				ooStream.writeObject(myTanke);
+				ooStream.writeObject(objects);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+	}
+	public void load() {
+		File file = new File(path);
+			ObjectInputStream ois;
+			try {
+				ois = new ObjectInputStream(new FileInputStream(file));
+				myTanke = (Tanke)ois.readObject();
+				objects = (List)ois.readObject();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 	}
 }

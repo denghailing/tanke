@@ -3,6 +3,8 @@
  */
 package com.dhl.tanke.strategy;
 
+import java.io.Serializable;
+
 import com.dhl.tanke.Tanke;
 
 /**
@@ -10,6 +12,6 @@ import com.dhl.tanke.Tanke;
  * @author DHL
  * @version 2020年6月3日
  */
-public interface FireStrategy {
+public interface FireStrategy extends Serializable {
 	public void fire(Tanke t);
 }

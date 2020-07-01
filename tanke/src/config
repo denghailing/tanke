@@ -7,3 +7,5 @@ gameheight=720
 #FireStrategy
 goodfs=com.dhl.tanke.strategy.DefaultFireStrategy|com.dhl.tanke.strategy.FourDirFireStrategy|com.dhl.tanke.strategy.LineFireStrategy
 badfs=com.dhl.tanke.strategy.DefaultFireStrategy
+#保存路径
+savePath=D:/tankeSave/tanke.data
