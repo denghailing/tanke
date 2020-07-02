@@ -105,19 +105,28 @@ public class GameModel {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			ObjectOutputStream ooStream = null;
 			try {
-				ObjectOutputStream ooStream = new ObjectOutputStream(new FileOutputStream(f));
+				ooStream = new ObjectOutputStream(new FileOutputStream(f));
 				ooStream.writeObject(myTanke);
 				ooStream.writeObject(objects);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+			}finally {
+				if(ooStream != null){
+					try {
+						ooStream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}	
 	}
 	public void load() {
 		File file = new File(path);
-			ObjectInputStream ois;
+			ObjectInputStream ois = null;
 			try {
 				ois = new ObjectInputStream(new FileInputStream(file));
 				myTanke = (Tanke)ois.readObject();
@@ -128,6 +137,14 @@ public class GameModel {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+			}finally{
+				if(ois != null){
+					try {
+						ois.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 	}
 }
