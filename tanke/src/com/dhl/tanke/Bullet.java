@@ -103,7 +103,6 @@ public class Bullet extends GameObject {
 			break;
 		}
 		move();
-		System.out.println("W = " + w + " |h = "+h);
 	}
 	public void setGroup(Group group) {
 		this.group = group;

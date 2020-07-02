@@ -18,6 +18,6 @@ import com.dhl.tanke.Tanke;
  * @author DHL
  * @version 2020年6月19日
  */
-public interface TankeObserver {
+public interface TankeObserver extends Serializable{
 	abstract void actionOnFire(TankeFireEvent e);
 }
